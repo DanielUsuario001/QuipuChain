@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@postgres/app"
+}
+
+model Transaction {
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  
+  // Transaction identification
+  hash          String   @unique
+  network       String   // 'scroll', 'scroll-sepolia', 'starknet', 'starknet-sepolia'
+  walletAddress String
+  
+  // Transaction type and status
+  type          String   // 'swap' or 'send'
+  status        String   // 'completed', 'pending', 'failed'
+  
+  // Token information
+  fromToken     String
+  toToken       String?  // null for 'send' transactions
+  amount        String   // stored as string to preserve precision
+  toAmount      String?  // amount received (for swaps)
+  
+  // Additional details
+  recipient     String?  // for 'send' transactions
+  gasFee        String?  // gas fee in native currency
+  priceImpact   Float?   // price impact percentage (for swaps)
+  exchangeRate  Float?   // exchange rate at time of swap
+  
+  // USD values at time of transaction
+  fromTokenUsdPrice Float?
+  toTokenUsdPrice   Float?
+  totalUsdValue     Float?
+  
+  @@index([walletAddress, createdAt])
+  @@index([network, walletAddress])
+}
+
+model PortfolioSnapshot {
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  
+  walletAddress String
+  network       String
+  
+  // Portfolio values
+  totalUsdValue Float
+  
+  // Token balances (stored as JSON)
+  tokenBalances String   // JSON string: { "USDT": "1000.50", "USDC": "500.25", ... }
+  
+  @@index([walletAddress, network, createdAt])
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  
+  email         String   @unique
+  hashedPin     String
+  
+  // Simulated wallet addresses
+  scrollAddress    String
+  starknetAddress  String
+  
+  // User preferences
+  preferredName    String?
+  
+  @@index([email])
+}

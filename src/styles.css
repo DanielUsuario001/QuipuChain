@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 20% 98%;
+    --foreground: 30 15% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 30 15% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 15% 20%;
+    --primary: 35 85% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 30 30% 95%;
+    --secondary-foreground: 30 15% 25%;
+    --muted: 30 20% 94%;
+    --muted-foreground: 30 10% 50%;
+    --accent: 30 30% 92%;
+    --accent-foreground: 30 15% 25%;
+    --destructive: 0 70% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 20% 88%;
+    --input: 30 20% 88%;
+    --ring: 35 85% 55%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 0 0% 8%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 270 80% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 16%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 0 0% 18%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 270 80% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground dark;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  html {
+    color-scheme: dark;
+  }
+}
+
+@layer utilities {
+  .glass-effect {
+    @apply bg-card/90 backdrop-blur-xl border border-border/50;
+  }
+  
+  .gradient-bg {
+    background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 50%, #10B981 100%);
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-purple-500 via-blue-500 to-green-500 bg-clip-text text-transparent font-bold;
+  }
+  
+  .neon-border {
+    @apply border-2 border-purple-500/30 shadow-[0_0_15px_rgba(139,92,246,0.3)];
+  }
+  
+  .neon-glow {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.2);
+  }
+  
+  .neon-text {
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.8), 0 0 20px rgba(139, 92, 246, 0.4);
+  }
+  
+  .action-button {
+    @apply flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-secondary hover:bg-secondary/80 transition-all cursor-pointer border border-border/50 hover:border-purple-500/50 hover:shadow-[0_0_20px_rgba(139,92,246,0.2)];
+  }
+  
+  .wallet-card {
+    @apply rounded-2xl bg-card border border-border/50 shadow-sm hover:shadow-md transition-all;
+  }
+  
+  .network-badge {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium;
+  }
+  
+  .swap-button {
+    @apply rounded-full h-12 w-12 bg-gradient-to-br from-purple-500/20 to-blue-500/20 hover:from-purple-500/30 hover:to-blue-500/30 border-2 border-purple-500/30 hover:border-purple-500/50 transition-all duration-300 hover:scale-110 hover:rotate-180 active:scale-95 shadow-[0_0_15px_rgba(139,92,246,0.3)];
+  }
+  
+  .price-change-positive {
+    @apply text-green-500 dark:text-green-400 font-medium;
+  }
+  
+  .price-change-negative {
+    @apply text-red-500 dark:text-red-400 font-medium;
+  }
+  
+  .token-card {
+    @apply rounded-xl p-4 bg-secondary/30 hover:bg-secondary/50 border border-border/50 hover:border-primary/30 transition-all duration-200 hover:shadow-lg cursor-pointer;
+  }
+  
+  .quick-select-button {
+    @apply px-4 py-2 rounded-lg bg-secondary/50 hover:bg-primary/20 border border-border/50 hover:border-primary/50 text-sm font-medium transition-all duration-200 hover:scale-105 active:scale-95;
+  }
+  
+  .animated-border {
+    @apply relative before:absolute before:inset-0 before:rounded-2xl before:p-[2px] before:bg-gradient-to-r before:from-primary/50 before:via-primary before:to-primary/50 before:-z-10 before:animate-shimmer;
+    background-size: 200% 100%;
+  }
+  
+  .number-display {
+    @apply font-mono tabular-nums transition-all duration-300;
+  }
+  
+  .quote-card {
+    @apply rounded-xl border-2 border-purple-500/20 bg-gradient-to-br from-purple-500/5 to-blue-500/10 backdrop-blur-sm shadow-lg shadow-purple-500/10;
+  }
+  
+  .input-with-focus {
+    @apply transition-all duration-200 focus-within:scale-[1.02] focus-within:shadow-lg;
+  }
+}
